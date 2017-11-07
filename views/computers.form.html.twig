@@ -1,0 +1,43 @@
+<h2>Formulaire</h2>
+
+{% if computer is defined %}
+<form method="post" name="formulaire" action="{{ url('computers.save', {id: computer.id}) }}">
+
+    <input type="hidden" name="id" value={{computer.id}} />
+
+    <label for="name">Marque : </label>
+    <input type="text" name="marque" value={{computer.marque}} />
+
+    <label for="name">Prix : </label>
+    <input type="text" name="prix" value={{computer.prix}}  />
+
+    <label for="name">IdUser : </label>
+    <select name="idUser" id="idUser"/>
+    {% for user in users %}
+    <option value={{user.id}}
+    {% if computer.idUser==user.id %}
+    selected
+    {% endif %}
+    >{{user.nom}}</option>
+    {% endfor %}
+    </select>
+    {% else %}
+<form method="post" name="formulaire" action="{{ url('computers.save') }}">
+    <label for="name">Marque : </label>
+    <input type="text" name="marque" />
+
+    <label for="name">Prix : </label>
+    <input type="text" name="prix" />
+
+    <label for="name">IdUser : </label>
+    <select name="idUser" id="idUser"/>
+
+    {% for user in users %}
+    <option value={{user.id}}>{{user.nom}}</option>
+    {% endfor %}
+    </select>
+    {% endif %}
+
+    <button type="submit">Envoyer</button>
+
+</form>
